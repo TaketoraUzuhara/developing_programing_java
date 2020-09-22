@@ -4,7 +4,7 @@ import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 
-public class test extends Application{
+public class test2 extends Application{
     public static void main(String[] args) {
         launch(args);
     }
