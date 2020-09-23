@@ -14,7 +14,7 @@ public class test2 extends Application{
         Scene sc = new Scene(bp, 300, 200);
 
         stage.setScene(sc);
-        stage.serTitle("サンプル");
+        stage.setTitle("サンプル");
         stage.show();
     }
 }
