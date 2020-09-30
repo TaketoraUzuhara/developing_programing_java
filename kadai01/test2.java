@@ -8,7 +8,7 @@ public class test2 extends Application{
     public static void main(String[] args) {
         launch(args);
     }
-    public void start(Stage steage)throws Exception {
+    public void start(Stage stage)throws Exception {
         BorderPane bp = new BorderPane();
 
         Scene sc = new Scene(bp, 300, 200);
