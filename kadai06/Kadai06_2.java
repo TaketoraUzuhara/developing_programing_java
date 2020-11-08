@@ -17,7 +17,6 @@ import javafx.collections.*;
 public class Kadai06_2 extends Application{
     private TextField[][] tf = new TextField[9][9];
     private static int[][] board = new int[9][9];
-    // private ObservableList<String> ol = FXCollections.observableArrayList();
     private  Button reset_bt = new Button(String.valueOf("reset"));
     private Label lb;
     private ArrayList<ComboBox<String>> cb_list = new ArrayList<ComboBox<String>>();
@@ -48,7 +47,7 @@ public class Kadai06_2 extends Application{
             for(int j=0; j<9; j++){
                 if(board[i][j] == 0){
                     ComboBox<String> cb = new ComboBox<String>();
-                    // cb.setItems(ol);
+                    cb.setItems(checkListDefault(i, j));
                     cb.setOnAction(new ComboxEventHandler());
                     cb_list.add(cb);
                 } else {
@@ -61,16 +60,6 @@ public class Kadai06_2 extends Application{
                 }
             }
         }
-
-        for(int i=0; i<9; i++){
-            for(int j=0; j<9; j++){
-                if(board[i][j] == 0){
-                    // ObservableList<String> ol = FXCollections.observableArrayList(checkList(list, i, j));
-                    cb_list.get(i*9+j).setItems(checkList(i, j));   
-                }
-            }
-        }
-
 
         //register tp Gridpane
         int i_start = 0;
@@ -133,11 +122,10 @@ public class Kadai06_2 extends Application{
         stage.setTitle("Suudoku");
         stage.show();
     }
-    public ObservableList<String> checkList(int i, int j){
+    
+    ObservableList<String> checkListDefault(int i, int j){
         ObservableList<String> ol = FXCollections.observableArrayList();
         boolean check = true;
-        // List<String> return_list = list;
-        // String num;
         int start_i = 0;
         int start_j = 0;
         if((int)i/3 == 0) start_i = 0;
@@ -147,39 +135,30 @@ public class Kadai06_2 extends Application{
         if((int)j/3 == 0) start_j = 0;
         else if((int)j/3 == 1) start_j = 3;
         else if((int)j/3 == 2) start_j = 6;
+        //Check whether number,1~9, can be entered to list or not
         for(int m=1; m<=9; m++){
             for(int k=0; k<9; k++){
                 if(k==j) continue;
-                else if(board[i][k] == 0){
-                    if(Integer.parseInt(cb_list.get(i*9+k).getValue()) == m) check = false;
-                }
                 else{
-                    if(Integer.parseInt(tf[i][k].getText()) == m) check = false;
+                    if(board[i][k] == m) check = false;
                 }
             }
             for(int k=0; k<9; k++){
                 if(k==j) continue;
-                else if(board[k][j] == 0){
-                    if(Integer.parseInt(cb_list.get(k*9+j).getValue()) == m) check = false;
-                }
                 else{
-                    if(Integer.parseInt(tf[k][j].getText()) == m) check = false;
+                    if(board[k][j] == m) check = false;
                 }
             }
             for(int k=start_i; k<start_i+3; k++){
                 for(int l=start_j; l<start_j+3; l++){
                     if(k==i && l==j) continue;
-                    else if(board[k][l] == 0){
-                        if(Integer.parseInt(cb_list.get(k*9+l).getValue()) == m) check = false;
-                    }
                     else{
-                        if(Integer.parseInt(tf[k][l].getText()) == m) check = false;
+                        if(board[k][l] == m) check = false;
                     }
                 }
             }
-            Integer oi = new Integer(m);
-            if(check == true) ol.add(oi.toString());
-            else check = true; continue;
+            if(check == true) ol.add(String.valueOf(m));
+            else check = true;
         }
         return ol;
     }
